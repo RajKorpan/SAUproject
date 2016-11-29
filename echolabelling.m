@@ -9,6 +9,6 @@ AlB = AB(AB(:,1)<=AB(:,2),:);
 
 validpairsAhB = validpairs(AhB,AhB,4);
 validpairsAlB = validpairs(AlB,AlB,4);
-validjoint = validpairs(validpairsAhB,validpairsAlB,8);
+validjoint = validpairs(validpairsAlB,validpairsAhB,8);
 output = validjoint;
 end
