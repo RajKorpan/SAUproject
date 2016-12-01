@@ -7,7 +7,6 @@ U = zeros(20,4);
 EchoCandidates1 = echocandidates(origSound,initialRIR,Fs,K);
 U(1,:) = mean(EchoCandidates1);
 
-
 r2 = [1.051,1.702];
 RIR2 = audio2;
 EchoCandidates2 = echolabelling(U(1,:),origSound,RIR2,Fs,K,r1,r2);
@@ -37,3 +36,18 @@ r7 = [1.548,5.686];
 RIR7 = audio7;
 EchoCandidates7 = echolabelling(U(6,:),origSound,RIR7,Fs,K,r6,r7);
 U(7,:) = mean(EchoCandidates7(:,[2,4,6,8]));
+
+Umed = zeros(7,4);
+Umed(1,:) = median(EchoCandidates1);
+Umed(2,:) = median(EchoCandidates2(:,[2,4,6,8]));
+Umed(3,:) = median(EchoCandidates3(:,[2,4,6,8]));
+Umed(4,:) = median(EchoCandidates4(:,[2,4,6,8]));
+Umed(5,:) = median(EchoCandidates5(:,[2,4,6,8]));
+Umed(6,:) = median(EchoCandidates6(:,[2,4,6,8]));
+Umed(7,:) = median(EchoCandidates7(:,[2,4,6,8]));
+
+r = [r1;r2;r3;r4;r5;r6;r7];
+tlines = [];
+for i = 1:6
+    tlines = [tlines;tangentlines(r(i,:),r(i+1,:),Umed(i,1),Umed(i+1,1))];
+end
