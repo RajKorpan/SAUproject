@@ -51,3 +51,11 @@ tlines = [];
 for i = 1:6
     tlines = [tlines;tangentlines(r(i,:),r(i+1,:),Umed(i,1),Umed(i+1,1))];
 end
+
+tlines4 = [];
+for i = 1:length(EchoCandidates2)
+    tl = tangentlines(r(1,:),r(2,:),EchoCandidates2(i,7),EchoCandidates2(i,8));
+    if ~isempty(tl)
+        tlines4 = [tlines4; tl];
+    end
+end
