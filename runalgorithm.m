@@ -3,13 +3,18 @@ initialRIR = audio1;
 r1 = [0,0];
 K = 4;
 U = zeros(20,4);
+prior = [0,0;0,0;0,0];
 
 EchoCandidates1 = echocandidates(origSound,initialRIR,Fs,K);
 U(1,:) = mean(EchoCandidates1);
 
 r2 = [1.051,1.702];
+v1 = r2-r1;
+positionposterior1 = robotposition(v1,prior);
+[a,b]=find(positionposterior1==max(max(positionposterior1)));
 RIR2 = audio2;
-EchoCandidates2 = echolabelling(U(1,:),origSound,RIR2,Fs,K,r1,r2);
+EchoCandidates2 = echolabelling(U(1,:),origSound,RIR2,Fs,K,r1,[a,b]);
+
 U(2,:) = mean(EchoCandidates2(:,[2,4,6,8]));
 
 r3 = [1.867,3.528];
@@ -57,5 +62,13 @@ for i = 1:length(EchoCandidates2)
     tl = tangentlines(r(1,:),r(2,:),EchoCandidates2(i,7),EchoCandidates2(i,8));
     if ~isempty(tl)
         tlines4 = [tlines4; tl];
+    end
+end
+
+tlinesaa = [];
+for i = 1:length(EchoCandidates2a)
+    tl = [tangentlines(r1,r2,EchoCandidates2a(i,1),EchoCandidates2a(i,2)),tangentlines(r1,r2,EchoCandidates2a(i,3),EchoCandidates2a(i,4)),tangentlines(r1,r2,EchoCandidates2a(i,5),EchoCandidates2a(i,6)),tangentlines(r1,r2,EchoCandidates2a(i,7),EchoCandidates2a(i,8))];
+    if ~isempty(tl)
+        tlinesaa = [tlinesaa; tl];
     end
 end
