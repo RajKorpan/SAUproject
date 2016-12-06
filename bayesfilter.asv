@@ -2,9 +2,7 @@ function [output] = bayesfilter(TOAs,rnm1,rn)
 tlines = [];
 for i = 1:length(TOAs)
     tl = [tangentlines(rnm1,rn,TOAs(i,1),TOAs(i,2)),tangentlines(rnm1,rn,TOAs(i,3),TOAs(i,4)),tangentlines(rnm1,rn,TOAs(i,5),TOAs(i,6)),tangentlines(rnm1,rn,TOAs(i,7),TOAs(i,8))];
-    for j = 1:2
-        
-    end
+    for j = 
     if ~isempty(tl)
         tlines = [tlines; tl];
     end
