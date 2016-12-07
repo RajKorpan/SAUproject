@@ -1,15 +1,19 @@
-function [output] = robotposition(vnm1,priortheta)
-xrange = [-6:0.1:6];
-yrange = [-6:0.1:6];
+function [output] = robotposition(vnm1,priortheta,xrange,yrange)
 [Xrange,Yrange] = meshgrid(xrange,yrange);
 priormu = priortheta(1,:);
-sigma = priortheta(2:3,:);
-prior = mvnpdf([Xrange(:) Yrange(:)],priormu,sigma);
-prior = reshape(prior,length(Yrange),length(Xrange));
+priorsigma = priortheta(2:3,:);
+if isequal(priorsigma,[0,0;0,0])
+    prior = zeros(length(xrange),length(yrange));
+    prior(round(length(xrange)/2),round(length(yrange)/2)) = 1;
+    sigma = [1,0;0,1];
+else
+    sigma = priorsigma;
+    prior = mvnpdf([Xrange(:) Yrange(:)],priormu,sigma);
+    prior = reshape(prior,length(Yrange),length(Xrange));
+end
 
 xchange = vnm1(1);
 ychange = vnm1(2);
-posterior = prior;
 ml=0*prior;
 for i = 1:length(prior)
     for j = 1:length(prior)
@@ -20,6 +24,6 @@ for i = 1:length(prior)
     end
 end
 posterior=ml/sum(sum(ml));
-[a,b]=find(posterior==max(max(posterior)));
+%[a,b]=find(posterior==max(max(posterior)));
 output = posterior;
 end
