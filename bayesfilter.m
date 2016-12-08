@@ -8,8 +8,8 @@ for i = 1:length(TOAs)
         for j = 1:length(tl)
             if validlines(tl(j,:),rnm1,rn) == 1
                 line = tl(j,:);
-                slopeind = discretize(line(:,[1,3,5,7]),sloperange);
-                interceptind = discretize(line(:,[2,4,6,8]),interceptrange);
+                slopeind = discretize(line(:,[1,3,5,7]),sloperange,'IncludedEdge','right');
+                interceptind = discretize(line(:,[2,4,6,8]),interceptrange,'IncludedEdge','right');
                 for k = 1:4
                     counts(slopeind(k),interceptind(k),walls(k)) = counts(slopeind(k),interceptind(k),walls(k))+1;
                 end
