@@ -36,13 +36,14 @@ if alldifferentslopes == 1
     end
     %alldifferentintersects = sum(diffintersect);
     if diffintersect == 0
-        boundedrnm1 = [(line1(1)*rnm1(1)+line1(2))>rnm1(2),((rnm1(2)-line1(2))/line1(1))>rnm1(1);(line2(1)*rnm1(1)+line2(2))>rnm1(2),((rnm1(2)-line2(2))/line2(1))>rnm1(1);(line3(1)*rnm1(1)+line3(2))>rnm1(2),((rnm1(2)-line3(2))/line3(1))>rnm1(1);(line4(1)*rnm1(1)+line4(2))>rnm1(2),((rnm1(2)-line4(2))/line4(1))>rnm1(1)];
-        boundedrn = [(line1(1)*rn(1)+line1(2))>rn(2),((rn(2)-line1(2))/line1(1))>rn(1);(line2(1)*rn(1)+line2(2))>rn(2),((rn(2)-line2(2))/line2(1))>rn(1);(line3(1)*rn(1)+line3(2))>rn(2),((rn(2)-line3(2))/line3(1))>rn(1);(line4(1)*rn(1)+line4(2))>rn(2),((rn(2)-line4(2))/line4(1))>rn(1)];
-        if isequal(sum(boundedrnm1),[2,2]) && isequal(sum(boundedrn),[2,2])
-            output = 1;
-        else
-            output = 0;
-        end
+        %boundedrnm1 = [(line1(1)*rnm1(1)+line1(2))>rnm1(2),((rnm1(2)-line1(2))/line1(1))>rnm1(1);(line2(1)*rnm1(1)+line2(2))>rnm1(2),((rnm1(2)-line2(2))/line2(1))>rnm1(1);(line3(1)*rnm1(1)+line3(2))>rnm1(2),((rnm1(2)-line3(2))/line3(1))>rnm1(1);(line4(1)*rnm1(1)+line4(2))>rnm1(2),((rnm1(2)-line4(2))/line4(1))>rnm1(1)];
+        %boundedrn = [(line1(1)*rn(1)+line1(2))>rn(2),((rn(2)-line1(2))/line1(1))>rn(1);(line2(1)*rn(1)+line2(2))>rn(2),((rn(2)-line2(2))/line2(1))>rn(1);(line3(1)*rn(1)+line3(2))>rn(2),((rn(2)-line3(2))/line3(1))>rn(1);(line4(1)*rn(1)+line4(2))>rn(2),((rn(2)-line4(2))/line4(1))>rn(1)];
+        output = 1;
+        %if isequal(sum(boundedrnm1),[2,2]) && isequal(sum(boundedrn),[2,2])
+        %    output = 1;
+        %else
+        %    output = 0;
+        %end
     else
         output = 0;
     end
