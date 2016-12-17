@@ -1,4 +1,6 @@
 function [output] = invalidtrapezoid(input,vn)
+% Function that checks if a pair of echo candidates for a valid trapezoid given the velocity
+
 [s1,s2] = size(input);
 validpairs = zeros(s1,s2);
 for i = 1:s1

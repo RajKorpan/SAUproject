@@ -1,4 +1,7 @@
 function [output] = robotposition(vnm1,priortheta,xrange,yrange)
+% Bayes Updating function that computes the distribution of the robot
+% position based on the velocity and prior
+
 [Xrange,Yrange] = meshgrid(xrange,yrange);
 priormu = priortheta(1,:);
 priorsigma = priortheta(2:3,:);

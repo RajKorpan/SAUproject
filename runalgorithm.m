@@ -1,3 +1,7 @@
+% Script that was used during testing on natural sounds, however, the data
+% was not usable due to significant noise and using the wrong sound to
+% collect the RIR
+
 origSound = origaudio;
 initialRIR = audio1;
 r1 = [0,0];

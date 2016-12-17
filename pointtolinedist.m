@@ -1,4 +1,6 @@
 function [output] = pointtolinedist(linepoint1,linepoint2,point,error)
+% Function that was used while testing the algorithms
+
 x0 = point(1,1);
 y0 = point(1,2);
 x1 = linepoint1(1,1);

@@ -1,4 +1,7 @@
 function [output] = tangentlines(rnm1,rn,Unm1,Un)
+% Function that computes the tangent lines given the robots positions and
+% the echo times for each position
+
 nm1 = [rnm1,Unm1];
 n = [rn,Un];
 
@@ -17,20 +20,32 @@ elseif nm1(3)<n(3)
     r1 = nm1(3);
     r0 = n(3);
 end
-distcenters = sqrt((c-a)^2+(d-b)^2);
-if distcenters>r0
-    xp = (c*r0-a*r1)/(r0-r1);
-    yp = (d*r0-b*r1)/(r0-r1);
-    xt1 = (((r0^2)*(xp-a)+(r0)*(yp-b)*sqrt((xp-a)^2+(yp-b)^2-(r0)^2))/((xp-a)^2+(yp-b)^2))+a;
-    xt2 = (((r0^2)*(xp-a)-(r0)*(yp-b)*sqrt((xp-a)^2+(yp-b)^2-(r0)^2))/((xp-a)^2+(yp-b)^2))+a;
-    yt1 = (((r0^2)*(yp-b)-(r0)*(xp-a)*sqrt((xp-a)^2+(yp-b)^2-(r0)^2))/((xp-a)^2+(yp-b)^2))+b;
-    yt2 = (((r0^2)*(yp-b)+(r0)*(xp-a)*sqrt((xp-a)^2+(yp-b)^2-(r0)^2))/((xp-a)^2+(yp-b)^2))+b;
-    slope1 = (yt1-yp)/(xt1-xp);
-    slope2 = (yt2-yp)/(xt2-xp);
-    b1 = yt1-(slope1*xt1);
-    b2 = yt2-(slope2*xt2);
-    %output = [a,b,c,d,r0,r1,xp,yp,xt1,yt1,xt2,yt2,slope1,b1,slope2,b2];
-    output = [slope1,b1;slope2,b2];
+%distcenters = sqrt((c-a)^2+(d-b)^2);
+%if distcenters>r0
+xp = (c*r0-a*r1)/(r0-r1);
+yp = (d*r0-b*r1)/(r0-r1);
+xt1 = (((r0^2)*(xp-a)+(r0)*(yp-b)*sqrt((xp-a)^2+(yp-b)^2-(r0)^2))/((xp-a)^2+(yp-b)^2))+a;
+xt2 = (((r0^2)*(xp-a)-(r0)*(yp-b)*sqrt((xp-a)^2+(yp-b)^2-(r0)^2))/((xp-a)^2+(yp-b)^2))+a;
+yt1 = (((r0^2)*(yp-b)-(r0)*(xp-a)*sqrt((xp-a)^2+(yp-b)^2-(r0)^2))/((xp-a)^2+(yp-b)^2))+b;
+yt2 = (((r0^2)*(yp-b)+(r0)*(xp-a)*sqrt((xp-a)^2+(yp-b)^2-(r0)^2))/((xp-a)^2+(yp-b)^2))+b;
+slope1 = (yt1-yp)/(xt1-xp);
+slope2 = (yt2-yp)/(xt2-xp);
+b1 = yt1-(slope1*xt1);
+b2 = yt2-(slope2*xt2);
+%output = [a,b,c,d,r0,r1,xp,yp,xt1,yt1,xt2,yt2,slope1,b1,slope2,b2];
+if isinf(slope1) || isnan(slope1) || round(slope1,5) == 0 || slope1 > 10^8 || slope1 < -10^8
+    slope1 = 0;
+end
+if isinf(slope2) || isnan(slope2) || round(slope2,5) == 0 || slope2 > 10^8 || slope2 < -10^8
+    slope2 = 0;
+end
+
+if slope1 ~= 0 && slope2 ~= 0
+    output = real([slope1,b1;slope2,b2]);
+elseif slope1 == 0 && slope2 ~= 0
+    output = real([slope2,b2;slope2,b2]);
+elseif slope1 ~= 0 && slope2 == 0
+    output = real([slope1,b1;slope1,b1]);
 else
     output = [];
 end

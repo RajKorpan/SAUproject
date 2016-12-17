@@ -1,3 +1,5 @@
+% Script that was used while testing the algorithms to figure out how to do Bayesian updating in Matlab
+
 x=transpose(tlines);
 
 Sa=(1:0.05:2.5);
